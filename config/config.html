@@ -1,0 +1,18 @@
+<h3>Docker Runner</h3>
+<p>
+  Jobs are run inside docker containers!
+</p>
+<input ng-model="config.base" placeholder="The name of the docker image to base off of. Defaults to `ubuntu`">
+<div class="row-fluid">
+  <div class="span6">
+    <textarea ui-refresh="selectedTab" ui-codemirror="{theme: 'twilight', mode: 'shell', lineNumbers: true}" ng-model="config.dockerfile"># put your Dockerfile commands here</textarea>
+  </div>
+  <div class="span6">
+    <p class="help-text">
+      Put your Dockerfile commands here -- if you want to install any
+      extra packages, etc. Don't use CMD or EXPORT or things like
+      that; that is taken care of for you.
+    </p>
+  </div>
+</div>
+<button class="btn btn-primary" ng-click="save()">Save</button>
