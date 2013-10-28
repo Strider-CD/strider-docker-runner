@@ -15,7 +15,8 @@
     "type": "runner",
     "title": "Docker",
     "webapp": "index.js",
-    "icon": "icon.png"
+    "icon": "icon.png",
+    "config": true
   },
   "keywords": [
     "docker",
