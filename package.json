@@ -23,5 +23,8 @@
     "strider"
   ],
   "author": "Jared Forsyth <jared@jaredforsyth.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dockerode": "^2.0.1"
+  }
 }
