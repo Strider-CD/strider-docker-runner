@@ -25,6 +25,9 @@
   "author": "Jared Forsyth <jared@jaredforsyth.com>",
   "license": "MIT",
   "dependencies": {
-    "dockerode": "^2.0.1"
+    "dockerode": "^2.0.1",
+    "shell-quote": "^1.4.2",
+    "ssh2": "^0.3.4",
+    "strider-runner-core": "^0.1.4"
   }
 }
