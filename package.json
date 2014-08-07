@@ -26,8 +26,10 @@
   "license": "MIT",
   "dependencies": {
     "dockerode": "^2.0.1",
+    "freeport": "^1.0.3",
     "shell-quote": "^1.4.2",
     "ssh2": "^0.3.4",
-    "strider-runner-core": "^0.1.4"
+    "strider-runner-core": "git+https://github.com/Strider-CD/strider-runner-core#for-docker",
+    "strider-simple-runner": "git+https://github.com/Strider-CD/strider-simple-runner#for-docker"
   }
 }
