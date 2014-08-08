@@ -28,7 +28,7 @@ module.exports = {
     socketPath: String, // /var/run/docker.sock
     */
     host: String, // 127.0.0.1
-    post: Number, // 3000
+    port: Number, // 3000
   }
 }
 
