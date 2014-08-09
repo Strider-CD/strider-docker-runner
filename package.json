@@ -25,6 +25,7 @@
   "author": "Jared Forsyth <jared@jaredforsyth.com>",
   "license": "MIT",
   "dependencies": {
+    "debug": "^1.0.4",
     "dockerode": "^2.0.1",
     "event-stream": "^3.1.7",
     "freeport": "^1.0.3",
