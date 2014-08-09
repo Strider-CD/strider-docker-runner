@@ -1,13 +1,13 @@
 strider-docker-runner
 =====================
 
-## Really quick and rather dirty start
+## Quick Start
 
 - grab this repo, `npm link` it into your strider installation
 - get docker going, and it needs to be broadcasting over http
 - `docker pull strider/strider-docker-slave`
-- jump into the mongo database (I like [genghisapp](http://genghisapp.com)) and change the "runner.id" of the master branch of one of your projects from "simple-runner" to "docker"
-- start strider with the appropriate info about how to connect to docker, like `DOCKER_IP=192.168.59.103 DOCKER_PORT=2375 ./bin/strider`
+- choose the docker runner in the plugin config page
+- start strider with the appropriate info about how to connect to docker, e.g. `DOCKER_IP=192.168.59.103 DOCKER_PORT=2375 ./bin/strider`
 
 Profit! see this comment in the "prepare" phase telling you that **docker is alive**
 
