@@ -32,7 +32,7 @@
     "lodash": "^2.4.1",
     "shell-quote": "^1.4.2",
     "ssh2": "^0.3.4",
-    "strider-runner-core": "git+https://github.com/Strider-CD/strider-runner-core",
-    "strider-simple-runner": "git+https://github.com/Strider-CD/strider-simple-runner#for-docker"
+    "strider-runner-core": "^2.0.0",
+    "strider-simple-runner": "^0.13.0"
   }
 }
