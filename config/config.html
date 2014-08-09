@@ -2,17 +2,26 @@
 <p>
   Jobs are run inside docker containers!
 </p>
-<input ng-model="config.base" placeholder="The name of the docker image to base off of. Defaults to `ubuntu`">
-<div class="row-fluid">
+<input ng-model="config.image" placeholder="Docker image to use. Default: strider/strider-docker-slave" class="input-block-level input-xxlarge" type="text">
+<label class="checkbox">
+  <input type="checkbox" ng-model="config.privileged">
+  Should the image run in priveleged mode? WARNING don't run insecude code in
+  privleged mode.
+</label>
+<label class="checkbox">
+  <input type="checkbox" ng-model="config.publishPorts">
+  Publish all ports (can be useful for debugging)
+</label>
+<!--div class="row-fluid">
   <div class="span6">
     <textarea ui-refresh="selectedTab" ui-codemirror="{theme: 'twilight', mode: 'shell', lineNumbers: true}" ng-model="config.dockerfile"># put your Dockerfile commands here</textarea>
   </div>
   <div class="span6">
     <p class="help-text">
-      Put your Dockerfile commands here -- if you want to install any
-      extra packages, etc. Don't use CMD or EXPORT or things like
-      that; that is taken care of for you.
+      Put your Dockerfile commands here to install any extra packages, etc.
+      Don't use CMD or EXPORT or things like that; that is taken care of for
+      you.
     </p>
   </div>
-</div>
+</div-->
 <button class="btn btn-primary" ng-click="save()">Save</button>
