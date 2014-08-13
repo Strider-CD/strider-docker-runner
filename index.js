@@ -5,7 +5,7 @@ var Runner = require('strider-simple-runner').Runner
 
 var create = function(emitter, config, context, done){
   config = config || {}
-  initDocker(config.host, config.port, function (err, docker) {
+  initDocker(config, function (err, docker) {
     if (err) {
       console.warn("Failed to initialize docker! Make sure permissions are right, config is right, etc.", err)
       return done(new Error('Cannot initialize docker'))
@@ -25,10 +25,10 @@ module.exports = {
   config: {
     /** TODO use this
     method: String, // socket | http
-    socketPath: String, // /var/run/docker.sock
     */
     host: String, // 127.0.0.1
     port: Number, // 3000
+    socketPath: String, // /var/run/docker.sock
   }
 }
 
