@@ -4,7 +4,8 @@
   "description": "Run jobs inside of docker containers",
   "main": "index.js",
   "scripts": {
-    "test": "make test"
+    "test": "make test",
+    "tdd": "mocha -w --recursive test/unit"
   },
   "repository": {
     "type": "git",
@@ -27,12 +28,18 @@
   "dependencies": {
     "debug": "^1.0.4",
     "dockerode": "^2.0.1",
+    "dockerode-optionator": "^1.0.0",
     "event-stream": "^3.1.7",
     "freeport": "^1.0.3",
     "lodash": "^2.4.1",
     "shell-quote": "^1.4.2",
     "ssh2": "^0.3.4",
     "strider-runner-core": "^2.0.0",
-    "strider-simple-runner": "^0.13.0"
+    "strider-simple-runner": "^0.13.0",
+    "uri-js": "^1.4.2"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.21.4"
   }
 }
