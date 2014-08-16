@@ -1,4 +1,3 @@
-
 var Runner = require('strider-simple-runner').Runner
   , initDocker = require('./lib/init')
   , runDocker = require('./lib/run')
@@ -23,12 +22,9 @@ var create = function(emitter, config, context, done){
 module.exports = {
   create: create,
   config: {
-    /** TODO use this
-    method: String, // socket | http
-    */
-    host: String, // 127.0.0.1
-    port: Number, // 3000
-    socketPath: String, // /var/run/docker.sock
+    host: String,
+    port: Number,
+    socketPath: String,
   }
 }
 
