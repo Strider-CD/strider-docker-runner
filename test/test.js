@@ -25,16 +25,15 @@ function run(spawn, command, args, done) {
   })
 }
 
-init(null, null, function (err, docker) {
-  createSlave(docker, {}, function (err, spawn, kill) {
+init({}, function (err, docker) {
+  createSlave(docker, {
+    image: 'strider/strider-docker-slave'
+  }, function (err, spawn, kill) {
     if (err) {
       throw err
     }
     var command = 'git'
     var args = ['clone', 'https://github.com/notablemind/loco.git', '.']
-    var command = 'sh'
-    var args = ['-c', 'echo ho && sleep 30 && echo hi']
-    var args = ['-c', 'git clone https://github.com/notablemind/loco.git . && ls']
     run(spawn, command, args, function () {
       run(spawn, 'echo', ['hello'], function () {
         process.exit(0)
