@@ -7,7 +7,7 @@ strider-docker-runner
 
 If you need to install Docker, see the [official installation instructions](https://docs.docker.com/installation/)
 
-The default image is `strider/strider-docker-slave` -- it is recommended to `docker pull strider/strider-docker-slave` directly on the Docker host, however the plugin will do this for you as of [https://github.com/Strider-CD/strider-docker-runner/pull/22](PR#22).
+The default image is `strider/strider-docker-slave` -- it is recommended to `docker pull strider/strider-docker-slave` directly on the Docker host, however the plugin will do this for you as of [PR#22](https://github.com/Strider-CD/strider-docker-runner/pull/22).
 
 If Docker is running on the same machine as Strider, you do not need to add any additional environment variables -- the plugin will try to use `unix:///var/run/docker.sock` to communicate with Docker. Make sure Strider has permission to do so, otherwise Strider will crash and complain.
 
