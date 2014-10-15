@@ -6,8 +6,7 @@ var create = function(emitter, config, context, done){
   config = config || {}
   initDocker(config, function (err, docker) {
     if (err) {
-      console.warn("Failed to initialize docker! Make sure permissions are right, config is right, etc.", err)
-      return done(new Error('Cannot initialize docker'))
+      console.warn("Docker is unreachable. strider-docker-runner will not work until you fix the configuration.")
     }
 
     config.processJob = runDocker.bind(null, docker)
