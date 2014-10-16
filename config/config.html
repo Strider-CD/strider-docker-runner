@@ -2,6 +2,7 @@
 <p>
   Jobs are run inside docker containers!
 </p>
+<input ng-model="config.docker_host" placeholder="Docker remote host (defaults to env var DOCKER_HOST)" class="input-block-level input-xxlarge" type="text">
 <input ng-model="config.image" placeholder="Docker image to use. Default: strider/strider-docker-slave" class="input-block-level input-xxlarge" type="text">
 <input ng-model="config.dns" placeholder="comma separated list of dns servers, default: 8.8.8.8" class="input-block-level input-xxlarge" type="text">
 <label class="checkbox">

@@ -1,6 +1,6 @@
 {
   "name": "strider-docker-runner",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Run jobs inside of docker containers",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "async": "~0.9.0",
     "debug": "^1.0.4",
     "dockerode": "^2.0.1",
-    "dockerode-optionator": "^1.0.0",
+    "dockerode-optionator": "^1.0.1",
     "event-stream": "^3.1.7",
     "lodash": "^2.4.1",
     "shell-quote": "^1.4.2",
