@@ -29,6 +29,8 @@ DOCKER_HOST="tcp://127.0.0.1:4243"
 
 You are not required to set `DOCKER_HOST` globally. You may choose to configure this value per project through the plugin config page.
 
+If DOCKER_HOST is not set and the value is also not configured in the plugin config page, it defaults to `unix:///var/run/docker.sock`
+
 ## Verification
 
 See this comment in the "prepare" phase telling you that **docker is alive**
