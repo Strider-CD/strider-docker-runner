@@ -31,6 +31,16 @@ You are not required to set `DOCKER_HOST` globally. You may choose to configure 
 
 If DOCKER_HOST is not set and the value is also not configured in the plugin config page, it defaults to `unix:///var/run/docker.sock`
 
+If you are working with remote docker containers, it is advised to use [Dockers TLS security options](http://docs.docker.com/articles/https/). For client setup please see the [official documentation](http://docs.docker.com/articles/https/#client-modes)
+
+Example
+```
+DOCKER_HOST="tcp://127.0.0.1:4243"
+DOCKER_TLS_VERIFY=1
+DOCKER_CERT_PATH=~/stridercd/certs
+```
+Be sure to [enable TLS on the Daemon](http://docs.docker.com/articles/https/#daemon-modes) as well. More information at http://docs.docker.com/articles/https/
+
 ## Verification
 
 See this comment in the "prepare" phase telling you that **docker is alive**
