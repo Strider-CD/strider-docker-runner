@@ -18,6 +18,7 @@ module.exports = {
     port: Number,
     socketPath: String,
     dns: String,
-    docker_host: String
+    docker_host: String,
+    docker_volumeBinds: String
   }
 }
