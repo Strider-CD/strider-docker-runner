@@ -1,6 +1,6 @@
 {
   "name": "strider-docker-runner",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Run jobs inside of docker containers",
   "main": "index.js",
   "scripts": {
