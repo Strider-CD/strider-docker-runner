@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-  , links = require('../../lib/links')
+  , links = require('../../lib/links');
 
 describe("links#parseLink()", function () {
   var fn = links.parseLink;
