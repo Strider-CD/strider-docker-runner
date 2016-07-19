@@ -23,7 +23,7 @@ function create(emitter, config, context, done) {
 
     self.jobdata.get(job._id).started = now;
     self.emitter.emit('browser.update', job.project.name, 'job.status.started', [job._id, now]);
-    self.log('[runner:' + self.id + '] Job started. Project: ' + job.project.name + ' Job ID: ' + job._id);
+    debug('[runner:' + self.id + '] Job started. Project: ' + job.project.name + ' Job ID: ' + job._id);
     self.plugins(job.project.creator, config, job, dirs, function (err, workers) {
       if (err) {
         var jobdata = self.jobdata.pop(job._id);
@@ -37,7 +37,7 @@ function create(emitter, config, context, done) {
         delete jobdata.data;
         jobdata.finished = new Date();
         self.emitter.emit('job.done', jobdata);
-        self.log('[runner:' + self.id + '] Job done with error. Project: ' + job.project.name + ' Job ID: ' + job._id);
+        debug('[runner:' + self.id + '] Job done with error. Project: ' + job.project.name + ' Job ID: ' + job._id);
         next(null);
         return;
       }
@@ -55,8 +55,7 @@ function create(emitter, config, context, done) {
         branchConfig: config,
         env: env,
         log: debug,
-        error: debug,
-        logger: console
+        error: debug
       }, function (err) {
         var jobdata = self.jobdata.pop(job._id);
         if (!jobdata) return next(null);
@@ -68,13 +67,13 @@ function create(emitter, config, context, done) {
             stack: err.stack
           };
           self.emitter.emit('browser.update', job.project.name, 'job.status.errored', [job._id, jobdata.error]);
-          self.log('[runner:' + self.id + '] Job done with error. Project: ' + job.project.name + ' Job ID: ' + job._id);
+          debug('[runner:' + self.id + '] Job done with error. Project: ' + job.project.name + ' Job ID: ' + job._id);
         }
 
         delete jobdata.data;
         jobdata.finished = new Date();
         self.emitter.emit('job.done', jobdata);
-        self.log('[runner:' + self.id + '] Job done without error. Project: ' + job.project.name + ' Job ID: ' + job._id);
+        debug('[runner:' + self.id + '] Job done without error. Project: ' + job.project.name + ' Job ID: ' + job._id);
         next(null);
       });
     });
