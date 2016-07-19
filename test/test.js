@@ -1,9 +1,8 @@
-
-var init = require('../lib/init')
-var createSlave = require('../lib/slave')
+var init = require('../lib/init');
+var createSlave = require('../lib/slave');
 
 if (!process.env.DOCKER_IP) {
-  console.log('Need to specify DOCKER_IP and DOCKER_PORT')
+  console.log('Need to specify DOCKER_IP and DOCKER_PORT');
   process.exit(1)
 }
 
@@ -14,12 +13,12 @@ function run(spawn, command, args, done) {
     }
     proc.stderr.on('data', function (data) {
       console.log('[err]', data.toString())
-    })
+    });
     proc.stdout.on('data', function (data) {
       console.log('[out]', data.toString())
-    })
+    });
     proc.on('exit', function (code) {
-      console.log('[exit] with', code)
+      console.log('[exit] with', code);
       done(code)
     })
   })
@@ -32,12 +31,12 @@ init({}, function (err, docker) {
     if (err) {
       throw err
     }
-    var command = 'git'
-    var args = ['clone', 'https://github.com/notablemind/loco.git', '.']
+    var command = 'git';
+    var args = ['clone', 'https://github.com/notablemind/loco.git', '.'];
     run(spawn, command, args, function () {
       run(spawn, 'echo', ['hello'], function () {
         process.exit(0)
       })
     })
   })
-})
+});
