@@ -31,12 +31,9 @@
     "dockerode": "^2.1.4",
     "dockerode-optionator": "^1.1.4",
     "event-stream": "^3.1.7",
-    "lodash": "^3.9.3",
-    "shell-quote": "^1.4.2",
-    "ssh2": "^0.4.8",
+    "lodash": "^2.4.1",
     "strider-runner-core": "^2.0.0",
-    "strider-simple-runner": "^0.13.0",
-    "uri-js": "^2.0.0"
+    "strider-simple-runner": "^0.13.0"
   },
   "devDependencies": {
     "chai": "^1.9.1",
