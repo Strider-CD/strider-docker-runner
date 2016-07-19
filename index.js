@@ -1,5 +1,7 @@
-var Runner = require('strider-simple-runner').Runner;
+var debug = require('debug')('strider-docker-runner');
 var runDocker = require('./lib/run');
+var Runner = require('strider-simple-runner').Runner;
+
 
 var create = function (emitter, config, context, done) {
   config = config || {};
@@ -7,9 +9,9 @@ var create = function (emitter, config, context, done) {
   var runner = new Runner(emitter, config);
   runner.id = 'docker';
 
-  console.log("Overriding runner.processJob");
+  debug("Overriding runner.processJob");
   runner.processJob = function (job, config, next) {
-    console.log("Running docker job...");
+    debug("Running docker job...");
 
     var now = new Date();
     var self = this;
@@ -53,8 +55,8 @@ var create = function (emitter, config, context, done) {
         io: self.config.io,
         branchConfig: config,
         env: env,
-        log: console.log,
-        error: console.error,
+        log: debug,
+        error: debug,
         logger: console
       }, function (err) {
         var jobdata = self.jobdata.pop(job._id);
@@ -79,7 +81,7 @@ var create = function (emitter, config, context, done) {
     });
   };
 
-  console.log("Fixing job queue handler");
+  debug("Fixing job queue handler");
   runner.queue.handler = runner.processJob.bind(runner);
 
   runner.loadExtensions(context.extensionPaths, function (err) {
