@@ -2,24 +2,23 @@ var debug = require('debug')('strider-docker-runner');
 var runDocker = require('./lib/run');
 var Runner = require('strider-simple-runner').Runner;
 
-
-var create = function (emitter, config, context, done) {
+function create(emitter, config, context, done) {
   config = config || {};
   config.processJob = runDocker;
   var runner = new Runner(emitter, config);
   runner.id = 'docker';
 
-  debug("Overriding runner.processJob");
+  debug('Overriding runner.processJob');
   runner.processJob = function (job, config, next) {
-    debug("Running docker job...");
+    debug('Running docker job...');
 
     var now = new Date();
     var self = this;
 
     var dirs = {
-      base: "/home/strider/workspace",
-      data: "/home/strider/workspace",
-      cache: "/home/strider/workspace"
+      base: '/home/strider/workspace',
+      data: '/home/strider/workspace',
+      cache: '/home/strider/workspace'
     };
 
     self.jobdata.get(job._id).started = now;
@@ -40,7 +39,7 @@ var create = function (emitter, config, context, done) {
         self.emitter.emit('job.done', jobdata);
         self.log('[runner:' + self.id + '] Job done with error. Project: ' + job.project.name + ' Job ID: ' + job._id);
         next(null);
-        return
+        return;
       }
       var env = {};
       if (config.envKeys) {
@@ -69,25 +68,25 @@ var create = function (emitter, config, context, done) {
             stack: err.stack
           };
           self.emitter.emit('browser.update', job.project.name, 'job.status.errored', [job._id, jobdata.error]);
-          self.log('[runner:' + self.id + '] Job done with error. Project: ' + job.project.name + ' Job ID: ' + job._id)
+          self.log('[runner:' + self.id + '] Job done with error. Project: ' + job.project.name + ' Job ID: ' + job._id);
         }
 
         delete jobdata.data;
         jobdata.finished = new Date();
         self.emitter.emit('job.done', jobdata);
         self.log('[runner:' + self.id + '] Job done without error. Project: ' + job.project.name + ' Job ID: ' + job._id);
-        next(null)
+        next(null);
       });
     });
   };
 
-  debug("Fixing job queue handler");
+  debug('Fixing job queue handler');
   runner.queue.handler = runner.processJob.bind(runner);
 
   runner.loadExtensions(context.extensionPaths, function (err) {
     done(err, runner);
   });
-};
+}
 
 module.exports = {
   create: create,
