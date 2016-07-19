@@ -1,5 +1,8 @@
-strider-docker-runner
-=====================
+# strider-docker-runner
+
+Run jobs inside of a Docker container.
+
+[![Build Status](https://travis-ci.org/Strider-CD/strider-docker-runner.svg?branch=master)](https://travis-ci.org/Strider-CD/strider-docker-runner)
 
 ## Installation
 
