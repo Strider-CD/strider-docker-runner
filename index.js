@@ -15,6 +15,13 @@ function create(emitter, config, context, done) {
     var now = new Date();
     var self = this;
 
+    var oldnext = next;
+    next = function () {
+      delete self.callbackMap[job._id];
+      oldnext();
+    };
+    this.callbackMap[job._id] = next;
+
     var dirs = {
       base: '/home/strider/workspace',
       data: '/home/strider/workspace',
