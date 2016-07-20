@@ -23,6 +23,9 @@
     "docker",
     "strider"
   ],
+  "engines": {
+    "node": ">=4.2"
+  },
   "author": "Jared Forsyth <jared@jaredforsyth.com>",
   "license": "MIT",
   "dependencies": {
