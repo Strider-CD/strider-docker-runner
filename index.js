@@ -31,6 +31,7 @@ function create(emitter, config, context, done) {
     self.jobdata.get(job._id).started = now;
     self.emitter.emit('browser.update', job.project.name, 'job.status.started', [job._id, now]);
     debug('[runner:' + self.id + '] Job started. Project: ' + job.project.name + ' Job ID: ' + job._id);
+    debug('Initializing plugins...');
     self.plugins(job.project.creator, config, job, dirs, function (err, workers) {
       if (err) {
         var jobdata = self.jobdata.pop(job._id);
