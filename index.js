@@ -11,20 +11,20 @@ function create(emitter, config, context, done) {
   runner.id = 'docker';
 
   debug('Overriding runner.processJob');
-  runner.processJob = function (job, config, next) {
+  runner.processJob = (job, config, next) => {
     debug('Running docker job...');
 
-    var now = new Date();
-    var self = this;
+    const now = new Date();
+    const self = this;
 
-    var oldnext = next;
-    next = function () {
+    const oldnext = next;
+    next = () => {
       delete self.callbackMap[job._id];
       oldnext();
     };
     this.callbackMap[job._id] = next;
 
-    var dirs = {
+    const dirs = {
       base: '/home/strider/workspace',
       data: '/home/strider/workspace',
       cache: '/home/strider/workspace'
@@ -34,9 +34,9 @@ function create(emitter, config, context, done) {
     self.emitter.emit('browser.update', job.project.name, 'job.status.started', [job._id, now]);
     debug(`[runner:${self.id}] Job started. Project: ${job.project.name} Job ID: ${job._id}`);
     debug('Initializing plugins...');
-    self.plugins(job.project.creator, config, job, dirs, function (err, workers) {
+    self.plugins(job.project.creator, config, job, dirs, (err, workers) => {
       if (err) {
-        var jobdata = self.jobdata.pop(job._id);
+        let jobdata = self.jobdata.pop(job._id);
         if (!jobdata) return next(null);
         jobdata.errored = true;
         jobdata.error = {
@@ -51,7 +51,7 @@ function create(emitter, config, context, done) {
         next(null);
         return;
       }
-      var env = {};
+      const env = {};
       if (config.envKeys) {
         env.STRIDER_SSH_PUB = config.pubkey;
         env.STRIDER_SSH_PRIV = config.privkey;
@@ -66,8 +66,8 @@ function create(emitter, config, context, done) {
         env: env,
         log: debug,
         error: debug
-      }, function (err) {
-        var jobdata = self.jobdata.pop(job._id);
+      }, err => {
+        let jobdata = self.jobdata.pop(job._id);
         if (!jobdata) return next(null);
 
         if (err) {
@@ -92,7 +92,7 @@ function create(emitter, config, context, done) {
   debug('Fixing job queue handler');
   runner.queue.handler = runner.processJob.bind(runner);
 
-  runner.loadExtensions(context.extensionPaths, function (err) {
+  runner.loadExtensions(context.extensionPaths, err => {
     done(err, runner);
   });
 }
