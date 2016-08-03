@@ -49,6 +49,7 @@ function create(emitter, config, context, done) {
         delete jobdata.data;
         jobdata.finished = new Date();
         self.emitter.emit('job.done', jobdata);
+
         debug(`[runner:${self.id}] Job done with error. Project: ${job.project.name} Job ID: ${job._id}`);
         return next(err);
       }
@@ -79,6 +80,9 @@ function create(emitter, config, context, done) {
             stack: err.stack
           };
           self.emitter.emit('browser.update', job.project.name, 'job.status.errored', [job._id, jobdata.error]);
+
+          delete jobdata.data;
+          jobdata.finished = new Date();
           debug(`[runner:${self.id}] Job done with error. Project: ${job.project.name} Job ID: ${job._id}`);
           return next(err);
         }
