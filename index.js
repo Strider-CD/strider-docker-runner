@@ -70,8 +70,12 @@ function create(emitter, config, context, done) {
         log: debug,
         error: debug
       }, err => {
-        let jobdata = self.jobdata.pop(job._id);
+        var jobdata = self.jobdata.pop(job._id);
         if (!jobdata) return next(err);
+
+        // Mark jobs as finished.
+        delete jobdata.data;
+        jobdata.finished = new Date();
 
         if (err) {
           jobdata.errored = true;
@@ -81,8 +85,6 @@ function create(emitter, config, context, done) {
           };
           self.emitter.emit('browser.update', job.project.name, 'job.status.errored', [job._id, jobdata.error]);
 
-          delete jobdata.data;
-          jobdata.finished = new Date();
           debug(`[runner:${self.id}] Job done with error. Project: ${job.project.name} Job ID: ${job._id}`);
           return next(err);
         }
