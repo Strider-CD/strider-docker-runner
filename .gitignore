@@ -1,2 +1,8 @@
+# IntelliJ/WebStorm project files
 .idea/
-node_modules
+
+# npm modules
+node_modules/
+
+# npm debug output
+npm-debug.log

@@ -4,7 +4,8 @@
   "description": "Run jobs inside of docker containers",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js",
+    "lint": "eslint *.js lib",
+    "test": "npm run lint && node test/test.js",
     "tdd": "mocha -w --recursive test/unit"
   },
   "repository": {
