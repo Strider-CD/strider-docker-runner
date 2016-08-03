@@ -38,7 +38,7 @@ function create(emitter, config, context, done) {
     self.plugins(job.project.creator, config, job, dirs, (err, workers) => {
       if (err) {
         let jobdata = self.jobdata.pop(job._id);
-        if (!jobdata) return next(null);
+        if (!jobdata) return next(err);
         jobdata.errored = true;
         jobdata.error = {
           message: err.message,
@@ -49,8 +49,7 @@ function create(emitter, config, context, done) {
         jobdata.finished = new Date();
         self.emitter.emit('job.done', jobdata);
         debug(`[runner:${self.id}] Job done with error. Project: ${job.project.name} Job ID: ${job._id}`);
-        next(null);
-        return;
+        return next(err);
       }
 
       const env = {};
@@ -70,7 +69,7 @@ function create(emitter, config, context, done) {
         error: debug
       }, err => {
         let jobdata = self.jobdata.pop(job._id);
-        if (!jobdata) return next(null);
+        if (!jobdata) return next(err);
 
         if (err) {
           jobdata.errored = true;
@@ -80,13 +79,14 @@ function create(emitter, config, context, done) {
           };
           self.emitter.emit('browser.update', job.project.name, 'job.status.errored', [job._id, jobdata.error]);
           debug(`[runner:${self.id}] Job done with error. Project: ${job.project.name} Job ID: ${job._id}`);
+          return next(err);
         }
 
         delete jobdata.data;
         jobdata.finished = new Date();
         self.emitter.emit('job.done', jobdata);
         debug(`[runner:${self.id}] Job done without error. Project: ${job.project.name} Job ID: ${job._id}`);
-        next(null);
+        return next();
       });
     });
   };
