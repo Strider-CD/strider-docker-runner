@@ -1,6 +1,7 @@
 'use strict';
 
 const debug = require('debug')('strider-docker-runner');
+const initDocker = require('./lib/init');
 const runDocker = require('./lib/run');
 const Runner = require('strider-simple-runner').Runner;
 
@@ -99,9 +100,55 @@ function create(emitter, config, context, done) {
   });
 }
 
+/**
+ * List all running containers and check if their names are prefixed with "strider-".
+ * If so, then they were probably started during a previous run and were not shut down properly.
+ * In that case, we try to clean them up now.
+ *
+ * Note that this process does and can not know about containers that were started on any other but
+ * the default host. Meaning with a different host given in the job configuration.
+ */
 function cleanup() {
+  debug('Cleaning up...');
+  initDocker({}, (err, docker) => {
+    if (err) {
+      debug(err);
+      return;
+    }
 
+    docker.listContainers((err, containers) => {
+      if (err) {
+        debug(err);
+        return;
+      }
+
+      debug(`Found ${containers.length} running containers.`);
+
+      containers.forEach(function (containerInfo) {
+        if (!containerInfo.Names[0].match(/^\/strider-/)) {
+          debug(`Container "${containerInfo.Names[0]}" is not a strider runner. Skipping.`);
+          return;
+        }
+
+        debug(`Attempting to clean up container "${containerInfo.Names[0]}"...`);
+        docker.getContainer(containerInfo.Id)
+          .remove({
+            force: true, // Stop container and remove
+            v: true // Remove any attached volumes
+          }, err => {
+            if (err) {
+              debug(err);
+              return;
+            }
+
+            debug(`Cleaned up container "${containerInfo.Names[0]}".`);
+          });
+      });
+    });
+  });
 }
+// Cleanup on initial module load.
+cleanup();
 
 module.exports = {
   create: create,
