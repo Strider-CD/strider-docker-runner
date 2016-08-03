@@ -1,7 +1,9 @@
-var expect = require('chai').expect
-  , links = require('../../lib/links');
+'use strict';
 
-describe("links#parseLink()", function () {
+const expect = require('chai').expect;
+const links = require('../../lib/links');
+
+describe('links#parseLink()', function () {
   var fn = links.parseLink;
 
   it('returns undefined for invalid links', function () {
@@ -26,7 +28,7 @@ describe("links#parseLink()", function () {
   });
 });
 
-describe("links#filterContainers()", function () {
+describe('links#filterContainers()', function () {
 
   it('calls docker.listContainers with a label/value filter', function (done) {
     var docker = {
@@ -39,7 +41,7 @@ describe("links#filterContainers()", function () {
   });
 });
 
-describe("links#findLabeledContainers()", function () {
+describe('links#findLabeledContainers()', function () {
 
   it('swallows errors', function (done) {
     var docker = {
@@ -94,7 +96,7 @@ describe("links#findLabeledContainers()", function () {
   });
 });
 
-describe("links#findLabeledContainer()", function () {
+describe('links#findLabeledContainer()', function () {
 
   it('returns undefined if no containers match', function (done) {
     var docker = {
@@ -123,22 +125,22 @@ describe("links#findLabeledContainer()", function () {
   });
 });
 
-describe("links#resolveLinks()", function () {
+describe('links#resolveLinks()', function () {
 
   it('returns an error if no containers match a link', function (done) {
     var docker = {
       listContainers: function (opts, done) {
         done(null, []);
       },
-      getContainer: function (name) {
+      getContainer: function () {
         return {
           inspect: function (done) {
             return done(new Error());
           }
-        }
+        };
       }
     };
-    links.resolveLinks(docker, ['a'], function (err, links) {
+    links.resolveLinks(docker, ['a'], function (err) {
       expect(err).to.be.an.instanceof(Error);
       done();
     });
@@ -154,7 +156,7 @@ describe("links#resolveLinks()", function () {
           inspect: function (done) {
             return done(null, name);
           }
-        }
+        };
       }
     };
     links.resolveLinks(docker, ['a', 'b'], function (err, links) {
@@ -173,12 +175,12 @@ describe("links#resolveLinks()", function () {
         if (label === 'com.stridercd.link') return done(null, [{Id: value}]);
         done(null, []);
       },
-      getContainer: function (name) {
+      getContainer: function () {
         return {
           inspect: function (done) {
             return done();
           }
-        }
+        };
       }
     };
     links.resolveLinks(docker, ['a', 'b'], function (err, links) {
@@ -197,12 +199,12 @@ describe("links#resolveLinks()", function () {
         if (label === 'com.docker.compose.service') return done(null, [{Id: value}]);
         done(null, []);
       },
-      getContainer: function (name) {
+      getContainer: function () {
         return {
           inspect: function (done) {
             return done();
           }
-        }
+        };
       }
     };
     links.resolveLinks(docker, ['a', 'b'], function (err, links) {

@@ -7,7 +7,7 @@ const Runner = require('strider-simple-runner').Runner;
 function create(emitter, config, context, done) {
   config = config || {};
   config.processJob = runDocker;
-  var runner = new Runner(emitter, config);
+  const runner = new Runner(emitter, config);
   runner.id = 'docker';
 
   debug('Overriding runner.processJob');
