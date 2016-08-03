@@ -7,15 +7,16 @@ const Runner = require('strider-simple-runner').Runner;
 function create(emitter, config, context, done) {
   config = config || {};
   config.processJob = runDocker;
+
   const runner = new Runner(emitter, config);
   runner.id = 'docker';
 
   debug('Overriding runner.processJob');
-  runner.processJob = (job, config, next) => {
+  runner.processJob = function processJob(job, config, next) {
     debug('Running docker job...');
 
-    const now = new Date();
     const self = this;
+    const now = new Date();
 
     const oldnext = next;
     next = () => {
@@ -51,6 +52,7 @@ function create(emitter, config, context, done) {
         next(null);
         return;
       }
+
       const env = {};
       if (config.envKeys) {
         env.STRIDER_SSH_PUB = config.pubkey;
@@ -95,6 +97,10 @@ function create(emitter, config, context, done) {
   runner.loadExtensions(context.extensionPaths, err => {
     done(err, runner);
   });
+}
+
+function cleanup() {
+
 }
 
 module.exports = {
