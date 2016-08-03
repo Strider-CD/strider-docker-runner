@@ -1,6 +1,8 @@
-var debug = require('debug')('strider-docker-runner');
-var runDocker = require('./lib/run');
-var Runner = require('strider-simple-runner').Runner;
+'use strict';
+
+const debug = require('debug')('strider-docker-runner');
+const runDocker = require('./lib/run');
+const Runner = require('strider-simple-runner').Runner;
 
 function create(emitter, config, context, done) {
   config = config || {};
@@ -30,7 +32,7 @@ function create(emitter, config, context, done) {
 
     self.jobdata.get(job._id).started = now;
     self.emitter.emit('browser.update', job.project.name, 'job.status.started', [job._id, now]);
-    debug('[runner:' + self.id + '] Job started. Project: ' + job.project.name + ' Job ID: ' + job._id);
+    debug(`[runner:${self.id}] Job started. Project: ${job.project.name} Job ID: ${job._id}`);
     debug('Initializing plugins...');
     self.plugins(job.project.creator, config, job, dirs, function (err, workers) {
       if (err) {
@@ -45,14 +47,14 @@ function create(emitter, config, context, done) {
         delete jobdata.data;
         jobdata.finished = new Date();
         self.emitter.emit('job.done', jobdata);
-        debug('[runner:' + self.id + '] Job done with error. Project: ' + job.project.name + ' Job ID: ' + job._id);
+        debug(`[runner:${self.id}] Job done with error. Project: ${job.project.name} Job ID: ${job._id}`);
         next(null);
         return;
       }
       var env = {};
       if (config.envKeys) {
         env.STRIDER_SSH_PUB = config.pubkey;
-        env.STRIDER_SSH_PRIV = config.privkey
+        env.STRIDER_SSH_PRIV = config.privkey;
       }
       self.config.processJob(job, workers.provider, workers.jobplugins, {
         cachier: Function.prototype,
@@ -75,13 +77,13 @@ function create(emitter, config, context, done) {
             stack: err.stack
           };
           self.emitter.emit('browser.update', job.project.name, 'job.status.errored', [job._id, jobdata.error]);
-          debug('[runner:' + self.id + '] Job done with error. Project: ' + job.project.name + ' Job ID: ' + job._id);
+          debug(`[runner:${self.id}] Job done with error. Project: ${job.project.name} Job ID: ${job._id}`);
         }
 
         delete jobdata.data;
         jobdata.finished = new Date();
         self.emitter.emit('job.done', jobdata);
-        debug('[runner:' + self.id + '] Job done without error. Project: ' + job.project.name + ' Job ID: ' + job._id);
+        debug(`[runner:${self.id}] Job done without error. Project: ${job.project.name} Job ID: ${job._id}`);
         next(null);
       });
     });
