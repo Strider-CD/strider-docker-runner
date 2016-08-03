@@ -57,8 +57,8 @@ describe("links#findLabeledContainers()", function () {
       }
     };
     links.findLabeledContainers(docker, ['a'], 'b', function (err, containers) {
-      expect(err).to.be.undefined;
-      expect(containers).to.be.undefined;
+      expect(err).to.not.exist;
+      expect(containers).to.not.exist;
       done();
     });
   });
@@ -71,7 +71,7 @@ describe("links#findLabeledContainers()", function () {
       }
     };
     links.findLabeledContainers(docker, ['a', 'b', 'c'], 'v', function (err, containers) {
-      expect(err).to.be.undefined;
+      expect(err).to.not.exist;
       expect(containers).to.deep.equal(['a', 'b']);
       done();
     });
@@ -158,7 +158,7 @@ describe("links#resolveLinks()", function () {
       }
     };
     links.resolveLinks(docker, ['a', 'b'], function (err, links) {
-      expect(err).to.be.undefined;
+      expect(err).to.not.exist;
       expect(links).to.deep.equal(['a:a', 'b:b']);
       done();
     });
@@ -182,7 +182,7 @@ describe("links#resolveLinks()", function () {
       }
     };
     links.resolveLinks(docker, ['a', 'b'], function (err, links) {
-      expect(err).to.be.undefined;
+      expect(err).to.not.exist;
       expect(links).to.deep.equal(['a:a', 'b:b']);
       done();
     });
@@ -206,7 +206,7 @@ describe("links#resolveLinks()", function () {
       }
     };
     links.resolveLinks(docker, ['a', 'b'], function (err, links) {
-      expect(err).to.be.undefined;
+      expect(err).to.not.exist;
       expect(links).to.deep.equal(['a:a', 'b:b']);
       done();
     });
