@@ -31,7 +31,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.0.1",
-    "debug": "^2.2.0",
+    "debug": "^3.1.0",
     "dockerode": "^2.3.0",
     "dockerode-optionator": "^1.1.4",
     "event-stream": "^3.3.4",
@@ -40,8 +40,8 @@
     "strider-simple-runner": "^1.0.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.2.2",
-    "mocha": "^3.0.0"
+    "chai": "^4.1.2",
+    "eslint": "^4.13.0",
+    "mocha": "^4.0.1"
   }
 }
