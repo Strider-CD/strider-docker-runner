@@ -1,5 +1,7 @@
 # strider-docker-runner
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Strider-CD/strider-docker-runner.svg)](https://greenkeeper.io/)
+
 Run jobs inside of a Docker container.
 
 [![Build Status](https://travis-ci.org/Strider-CD/strider-docker-runner.svg?branch=master)](https://travis-ci.org/Strider-CD/strider-docker-runner)
